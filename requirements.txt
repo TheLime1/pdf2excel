@@ -1,3 +1,6 @@
 tabula-py
 openpyxl
 pandas
+PySimpleGUI
+PyPDF2
+Pillow
