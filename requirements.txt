@@ -1,1 +1,3 @@
 tabula-py
+openpyxl
+pandas
