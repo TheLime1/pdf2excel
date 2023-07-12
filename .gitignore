@@ -2,6 +2,7 @@
 *.pdf
 *.csv
 *.xlsx
+sbi_template.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

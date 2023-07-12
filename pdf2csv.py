@@ -1,4 +1,5 @@
 import tabula
+import os
 
 def export_tables_to_csv(pdf_path, template_path):
     # Read the PDF using the template
@@ -17,3 +18,15 @@ def export_tables_to_csv(pdf_path, template_path):
 
         # Convert the table to a CSV file
         df.to_csv("output.csv", index=False)
+
+
+def remove_csv_files():
+    # Get a list of all files in the current directory
+    files = os.listdir()
+
+    # Loop over each file
+    for file in files:
+        # Check if the file is a CSV file
+        if file.endswith(".csv"):
+            # Remove the CSV file
+            os.remove(file)
