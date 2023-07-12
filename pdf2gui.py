@@ -1,8 +1,6 @@
-# pdf_viewer.py
-
 import PySimpleGUI as sg
 import os.path
-import PyPDF2
+import fitz
 from io import BytesIO
 from PIL import Image
 
@@ -25,7 +23,7 @@ file_list_column = [
 pdf_viewer_column = [
     [sg.Text("Choose a PDF from list on left:")],
     [sg.Text(size=(40, 1), key="-TOUT-")],
-    [sg.Image(key="-IMAGE-")],
+    [sg.Image(key="-IMAGE-", size=(400, 400))],
 ]
 
 # ----- Full layout -----
@@ -37,7 +35,7 @@ layout = [
     ]
 ]
 
-window = sg.Window("PDF Viewer", layout)
+window = sg.Window("PDF Viewer by Aymen Hmani", layout, resizable=True)
 
 # Run the Event Loop
 while True:
@@ -62,26 +60,17 @@ while True:
         window["-FILE LIST-"].update(fnames)
     elif event == "-FILE LIST-":  # A file was chosen from the listbox
         try:
-            filename = os.path.join(
-                values["-FOLDER-"], values["-FILE LIST-"][0]
-            )
+            filename = os.path.join(values["-FOLDER-"], values["-FILE LIST-"][0])
             window["-TOUT-"].update(filename)
-            
+
             # Open PDF and convert first page to image
-            with open(filename, "rb") as f:
-                pdf = PyPDF2.PdfFileReader(f)
-                page = pdf.getPage(0)
-                xObject = page['/Resources']['/XObject'].getObject()
-                for obj in xObject:
-                    if xObject[obj]['/Subtype'] == '/Image':
-                        size = (xObject[obj]['/Width'], xObject[obj]['/Height'])
-                        data = xObject[obj].getData()
-                        mode = "RGB" if xObject[obj]['/ColorSpace'] == '/DeviceRGB' else "P"
-                        img = Image.frombytes(mode, size, data)
-                        with BytesIO() as b:
-                            img.save(b, format="PNG")
-                            window["-IMAGE-"].update(data=b.getvalue())
-                        break
+            with fitz.open(filename) as doc:
+                page = doc.load_page(0)
+                pix = page.get_pixmap()
+                img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
+                with BytesIO() as b:
+                    img.save(b, format="PNG")
+                    window["-IMAGE-"].update(data=b.getvalue())
 
         except:
             pass
