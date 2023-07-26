@@ -19,6 +19,7 @@ file_list_column = [
             values=[], enable_events=True, size=(40, 20), key="-FILE LIST-"
         )
     ],
+    [sg.Button("Convert to Excel", key="-CONVERT-", disabled=True)],
 ]
 
 # For now will only show the name of the file that was chosen
@@ -37,12 +38,10 @@ layout = [
         sg.Column(file_list_column),
         sg.VSeperator(),
         sg.Column(pdf_viewer_column),
-        sg.VSeperator(),
-        convert_button,
     ]
 ]
 
-window = sg.Window("PDF Viewer", layout, resizable=True)
+window = sg.Window("PDF2Excel by Aymen Hmani (Lime1)", layout, resizable=True,icon='icon.ico')
 
 # Run the Event Loop
 while True:
@@ -85,7 +84,7 @@ while True:
     elif event == "-CONVERT-":  # Convert PDF to CSV and Excel
         try:
             pdf_path = filename  # Path of the previewed PDF
-            template_path = "C:/Users/everp/Documents/GitHub/pdf2excel/sbi_template.json"
+            template_path = "templates/sbi_template.json"
 
             export_tables_to_csv(pdf_path, template_path)
             merge_csv_to_excel(".", "output.xlsx")
