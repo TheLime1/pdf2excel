@@ -85,7 +85,8 @@ while True:
     elif event == "-CONVERT-":  # Convert PDF to CSV and Excel
         try:
             pdf_path = filename  # Path of the previewed PDF
-            template_path = "C:/Users/everp/OneDrive/Documents/GitHub/pdf2excel/sbi_template.json"
+            template_path = "C:/Users/everp/Documents/GitHub/pdf2excel/sbi_template.json"
+
             export_tables_to_csv(pdf_path, template_path)
             merge_csv_to_excel(".", "output.xlsx")
             remove_csv_files()
