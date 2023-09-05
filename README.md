@@ -13,7 +13,7 @@ To convert scanned invoices to Excel:
 1. Make sure you have Python installed.
 2. Install the required dependencies listed in the scripts.
 3. [generate your json](https://tabula.technology/)
-4. modify 'pdf2csv.py' to fit your needs.
+4. modify `pdf2csv.py` to fit your needs.
 5. Use the provided scripts to process your scanned invoices and generate Excel files.
 
 ## Scripts
