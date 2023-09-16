@@ -24,3 +24,12 @@ To convert scanned invoices to Excel:
 
 If you have any questions or encounter issues, please don't hesitate to ask.
 
+
+
+
+https://github.com/TheLime1/pdf2excel/assets/47940043/0e3bd4d7-58a4-41b4-a9cd-120de2a501a6
+
+
+
+
+
